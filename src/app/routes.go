@@ -1,6 +1,7 @@
 package main
 
 import (
+	"back/src/app/auth"
 	"back/src/app/user"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -22,7 +23,7 @@ func main() {
 	// ========================================
 
 	authGroup := e.Group("")
-	authGroup.Use(user.Auth)
+	authGroup.Use(auth.Auth)
 	authGroup.GET("/jwt-test", func(c echo.Context) error {
 		return c.String(http.StatusOK, "jwt test")
 	})
