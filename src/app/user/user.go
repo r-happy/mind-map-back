@@ -120,12 +120,11 @@ func Login(c echo.Context) error {
 	}
 }
 
-// decode jwt token
+// decode jwt token ========================
 func decodeToken(tokenString string) (string, error) {
 	resolveTokenString := strings.TrimPrefix(tokenString, "Bearer ")
-	// JWTのトークンをデコードし、検証します
 	token, err := jwt.Parse(resolveTokenString, func(t *jwt.Token) (interface{}, error) {
-		return []byte("secret"), nil // 秘密鍵を適切なバイト配列に置き換える
+		return []byte("secret"), nil
 	})
 	if err != nil {
 		return "", err
@@ -139,7 +138,7 @@ func decodeToken(tokenString string) (string, error) {
 	return "", err
 }
 
-// auth handler
+// auth handler ========================
 func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		token := c.Request().Header.Get("Authorization")
